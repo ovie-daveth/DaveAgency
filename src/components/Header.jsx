@@ -30,8 +30,8 @@ const Header = () => {
       <div className="nav_container flex items-center justify-between">
         <div className="logo flex gap-2 items-center cursor-pointer">
           <span className='text-red-500 text-2xl'><i class="ri-home-3-fill"></i></span>
-          <div className="logo_text flex flex-col gap-0">
-          <NavLink to='/'>
+          <div >
+          <NavLink to='/' className="logo_text flex flex-col gap-0">
           <h2 className='text-red-500 font-bold'>Dave<span className='text-black'>Agency</span></h2>
           <small className='-mt-1.5 italic font-semibold'>Reliable & Affordable</small>
           </NavLink>
