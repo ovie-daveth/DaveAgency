@@ -2,8 +2,12 @@ import React, { useState } from 'react'
 import Helmet from '../components/Helmet'
 import signin from '../assets/images/signin.jpg'
 import { NavLink } from 'react-router-dom'
+import GoogleSignIn from '../components/GoogleSignIn'
+
 
 const Signin = () => {
+
+
 
   const [showPassword, setShowPassword] = useState(false)
 
@@ -24,6 +28,19 @@ const Signin = () => {
     }))
   }
 
+  // const handleSubmit =  async () => {
+  //   await signInWithEmailAndPassword(auth, email, password)
+  //   .then((userCredential) => {
+  //     // Signed in 
+  //     const user = userCredential.user;
+  //     // ...
+  //   })
+  //   .catch((error) => {
+  //     const errorCode = error.code;
+  //     const errorMessage = error.message;
+  //   });
+  // }
+
   const {email, password} = formData
 
   return <Helmet title={'SignIn'}>
@@ -34,7 +51,7 @@ const Signin = () => {
             <img className=' w-full rounded-2xl' src={signin} alt="formimg" />
         </div>
         <div  className='w-full md:w-[67%] lg:w-[40%] md:ml-14'>
-            <form action="">
+            <form action="" >
               <input className='w-full shadow-md pl-4 text-sm py-2 rounded-sm border-gray-300 focus:outline-none  text-gray-500' type="email" placeholder='Email address' required id='email' value={email} onChange={onChange} />
              <div className="pass w-full relative my-6">
              <input className=' shadow-md w-full pl-4 text-sm py-2 rounded-sm border-gray-300 focus:outline-none text-gray-500'  
@@ -52,9 +69,11 @@ const Signin = () => {
               <small className=' text-blue-600'><NavLink to='/forgotpassword'>Forgot Password?</NavLink></small>
               </div>
               <button type='submit' className=' bg-blue-800 text-white font-semibold text-sm rounded-sm py-2 w-full my-6'>SIGN IN</button>
-              <p className='text-center text-black text-sm'>OR</p>
+             <div className="flex items-center before:border-t before:flex-1 before:border-gray-500 after:border-t after:flex-1 after:border-gray-500">
+             <p className='text-center text-black text-sm mx-3'>OR</p>
+             </div>
             </form>
-            <button className=' bg-red-600 text-white flex items-center justify-center gap-2 rounded-sm font-semibold text-sm py-2 w-full my-6'> <span className=' text-white text-1xl'><i class="ri-google-fill"></i></span> CONTINUE WITH GOOGLE</button>
+            <GoogleSignIn />
         </div>
       </div>
     </section>

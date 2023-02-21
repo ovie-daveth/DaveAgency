@@ -5,7 +5,7 @@ const Header = () => {
 
   const nav_active = {
     color: 'black',
-    fontWeight: 400,
+    fontWeight: 500,
     borderBottom: '2px solid red'
   }
 
@@ -40,7 +40,7 @@ const Header = () => {
         <ul className="flex items-center space-x-10 text-gray-700 ">
        {
         nav_link.map((item, index) => (
-          <NavLink key={index} style={(navItem) => navItem.isActive ? nav_active : null} className="py-3 text-gray-400 hover: ease-in-out transition-all .7s cursor-pointer" to={item.path}>{item.display}</NavLink>
+          <NavLink key={index} style={(navItem) => navItem.isActive ? nav_active : null} className="py-3 text-gray-600 font-semibold hover:ease-in-out transition-all .7s cursor-pointer" to={item.path}>{item.display}</NavLink>
         ))
        }
         </ul>
