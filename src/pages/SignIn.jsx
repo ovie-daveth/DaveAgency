@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import Helmet from '../components/Helmet'
 import signin from '../assets/images/signin.jpg'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import GoogleSignIn from '../components/GoogleSignIn'
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { toast } from 'react-toastify'
 
 
 const Signin = () => {
-
-
+  const navigate = useNavigate()
 
   const [showPassword, setShowPassword] = useState(false)
 
@@ -27,21 +28,23 @@ const Signin = () => {
       
     }))
   }
-
-  // const handleSubmit =  async () => {
-  //   await signInWithEmailAndPassword(auth, email, password)
-  //   .then((userCredential) => {
-  //     // Signed in 
-  //     const user = userCredential.user;
-  //     // ...
-  //   })
-  //   .catch((error) => {
-  //     const errorCode = error.code;
-  //     const errorMessage = error.message;
-  //   });
-  // }
-
   const {email, password} = formData
+
+  const handleSubmit =  async (e) => {
+
+    e.preventDefault()
+   try {
+    const auth = getAuth();
+    const result = await signInWithEmailAndPassword(auth, email, password)
+    const user = result.user
+   toast.success('Signed in successfully')
+   navigate("/")
+   } catch (error) {
+      toast.warning("Check your email and password again")
+   }
+  }
+
+  
 
   return <Helmet title={'SignIn'}>
     <section className="w-full">
@@ -51,7 +54,7 @@ const Signin = () => {
             <img className=' w-full rounded-2xl' src={signin} alt="formimg" />
         </div>
         <div  className='w-full md:w-[67%] lg:w-[40%] md:ml-14'>
-            <form action="" >
+            <form action="" onSubmit={handleSubmit}>
               <input className='w-full shadow-md pl-4 text-sm py-2 rounded-sm border-gray-300 focus:outline-none  text-gray-500' type="email" placeholder='Email address' required id='email' value={email} onChange={onChange} />
              <div className="pass w-full relative my-6">
              <input className=' shadow-md w-full pl-4 text-sm py-2 rounded-sm border-gray-300 focus:outline-none text-gray-500'  
