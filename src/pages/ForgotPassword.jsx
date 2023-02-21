@@ -28,7 +28,7 @@ const ForgotPassword = () => {
   // }
 
 
-  return <Helmet title={'SignIn'}>
+  return <Helmet title={'Reset Password'}>
     <section className="w-full">
       <h3 className='text-black font-bold text-center mt-6 text-[1.2rem]'>Reset Password</h3>
       <div className="form_content flex items-center flex-wrap gap-4 justify-center px-6 py-12 max-w-6xl mx-auto">
