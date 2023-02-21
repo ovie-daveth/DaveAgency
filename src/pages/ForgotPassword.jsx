@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import Helmet from '../components/Helmet'
 import signin from '../assets/images/signin.jpg'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import GoogleSignIn from '../components/GoogleSignIn'
+import { toast } from 'react-toastify'
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth'
+
 
 
 const ForgotPassword = () => {
@@ -10,22 +13,25 @@ const ForgotPassword = () => {
 
   const [email, setEmail] = useState('')
 
+  const navigate = useNavigate()
+
   const onChange = (e) => {
     setEmail(e.target.value)
   }
 
-  // const handleSubmit =  async () => {
-  //   await signInWithEmailAndPassword(auth, email, password)
-  //   .then((userCredential) => {
-  //     // Signed in 
-  //     const user = userCredential.user;
-  //     // ...
-  //   })
-  //   .catch((error) => {
-  //     const errorCode = error.code;
-  //     const errorMessage = error.message;
-  //   });
-  // }
+  async function handleFormSubmit(e){
+    e.preventDefault()
+
+    try {
+      const auth = getAuth()
+
+      await sendPasswordResetEmail(auth, email)
+      toast.success("Check your email to reset password")
+      navigate("/signin")
+    } catch (error) {
+      toast.error("Could not send reset password")
+    }
+  }
 
 
   return <Helmet title={'Reset Password'}>
@@ -36,7 +42,7 @@ const ForgotPassword = () => {
             <img className=' w-full rounded-2xl' src={signin} alt="formimg" />
         </div>
         <div  className='w-full md:w-[67%] lg:w-[40%] md:ml-14'>
-            <form action="" >
+            <form onSubmit={handleFormSubmit}>
               <input className='w-full shadow-md pl-4 text-sm py-2 mb-6 rounded-sm border-gray-300 focus:outline-none  text-gray-500' type="email" placeholder='Email address' required id='email' value={email} onChange={onChange} />
               <div className="aside flex justify-between items-center">
               <small className='text-gray-500'>Don't have an account? <span className='text-red-500'><NavLink to='/signup'>Register</NavLink></span></small>
