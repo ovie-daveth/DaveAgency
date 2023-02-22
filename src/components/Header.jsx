@@ -1,7 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 const Header = () => {
+
+  const [page, setpage] = useState("Sign In")
+  const auth = getAuth()
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) =>{
+      if(user){
+        setpage('Profile')
+      } else{
+        setpage('Sign In')
+      }
+    })
+  }, [])
+
+
+ 
 
   const nav_active = {
     color: 'black',
@@ -19,8 +35,8 @@ const Header = () => {
       display: 'Offer'
     },
     {
-      path: 'signin',
-      display: 'SignIn'
+      path: 'profile',
+      display: `${page}`
     },
   ]
 
