@@ -40,7 +40,12 @@ const Signin = () => {
    toast.success('Signed in successfully')
    navigate("/")
    } catch (error) {
-      toast.warning("Check your email and password again")
+    if(error.message.includes('email')){
+      toast.warning("This email is not registered")
+    } else if(error.message.includes('password')){
+      toast.warning("Invalid password")
+    }
+      
    }
   }
 
